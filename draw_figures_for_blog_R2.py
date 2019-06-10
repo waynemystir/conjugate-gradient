@@ -22,7 +22,8 @@ from conjugacy_math import \
     get_scipy_mins_for_quadratic_form, \
     innprd, \
     angle_between, \
-    make_positive_definite_matrix
+    make_positive_definite_matrix, \
+    gram_schmidt_conjugation
 
 A = np_array([4., 3, 3, 7]).reshape(2, 2)
 b = np_array([2, -13]).reshape(2, 1)
@@ -214,14 +215,14 @@ def figure_CJDR_3(debug_print=False):
     draw_concentric_balls(steps, text, textposition, title='CJDR.Fig.3', filename='Fig_CJDR_3.html', steps_mode='text, markers', debug_print=debug_print)
     return
 
-def compute_steps_in_ball_space():
+def orthogonal_directions_with_standard_basis():
     M_inv_x0 = M_inv.dot( x0 - center ) + center
-    M_inv_x1 = center - M_inv_x0
-    M_inv_x1 = np_array([ M_inv_x1[0, 0], 0 ]).reshape(2, 1) + M_inv_x0
+    M_inv_xw = center - M_inv_x0
+    M_inv_x1 = np_array([ M_inv_xw[0, 0], 0 ]).reshape(2, 1) + M_inv_x0
     return np_hstack(( M_inv_x0, M_inv_x1, center ))
 
 def figure_CJDR_4(debug_print=False):
-    steps = compute_steps_in_ball_space()
+    steps = orthogonal_directions_with_standard_basis()
 
     text = [ py_text_sub('x', '(0)'), py_text_sub('x', '(1)'), py_text_sub('x', '(*)') ]
     textposition = [ 'middle left', 'top center', 'bottom center' ]
@@ -230,7 +231,7 @@ def figure_CJDR_4(debug_print=False):
     return
 
 def figure_CJDR_5(debug_print=False):
-    steps = compute_steps_in_ball_space()
+    steps = orthogonal_directions_with_standard_basis()
     for i in [0, 1]:
         steps[:, i] = ( M.dot( steps[:, i].reshape(2, 1) - center ) + center ).reshape(2,)
 
@@ -244,12 +245,23 @@ def figure_CJDR_5(debug_print=False):
     draw_concentric_contours(steps, text, textposition, title='CJDR.Fig.5', filename='Fig_CJDR_5.html', debug_print=debug_print)
     return
 
+def figure_GSC_1(debug_print=False):
+    u = np_array([1., 0]).reshape(2, 1)
+    v = np_array([0., 5]).reshape(2, 1)
+    us = np_hstack((u, v))
+    d0, d1 = gram_schmidt_conjugation(A, us)
+    print("d0={} d1={}".format(d0, d1))
+    assert_A_orthogonal(A, d0, d1)
+    print("yep")
+    return
+
 def plot_all_R2_figures(debug_print=False):
     figure_ISD_1(debug_print=debug_print)
     figure_CJDR_1(debug_print=debug_print)
     figure_CJDR_3(debug_print=debug_print)
     figure_CJDR_4(debug_print=debug_print)
     figure_CJDR_5(debug_print=debug_print)
+    figure_GSC_1(debug_print=debug_print)
     return
 
 def main():

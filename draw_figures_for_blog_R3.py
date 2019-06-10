@@ -326,7 +326,7 @@ def figure_CJDR_6(debug_print=False):
     pt.plot_it_R3(data, axes_max, title='CJDR.Fig.6', filename="Fig_CJDR_6.html")
     return
 
-def orthogonal_directions():
+def orthogonal_directions_with_standard_basis():
     M_inv_x0 = M_inv.dot( x0 - center ) + center
     M_inv_xw = center - M_inv_x0
     M_inv_x1 = np.array([ M_inv_xw[0, 0], 0, 0 ]).reshape(3, 1) + M_inv_x0
@@ -335,7 +335,7 @@ def orthogonal_directions():
 
 def figure_CJDR_7(debug_print=False):
     data = []
-    steps = orthogonal_directions()
+    steps = orthogonal_directions_with_standard_basis()
 
     text = [ py_text_sub('x', '(0)'), py_text_sub('x', '(1)'), py_text_sub('x', '(2)'), py_text_sub('x', '(*)') ]
     textposition = ['top right', 'top right', 'top right', 'top left']
@@ -352,7 +352,7 @@ def figure_CJDR_7(debug_print=False):
 
 def figure_CJDR_8(debug_print=False):
     data = []
-    steps = orthogonal_directions()
+    steps = orthogonal_directions_with_standard_basis()
     for i in range(3): 
         steps[:, i] = ( M.dot( steps[:, i].reshape(3, 1) - center ) + center ).reshape(3,)
 

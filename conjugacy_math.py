@@ -224,6 +224,14 @@ def check_matrices_equal_except_column_sign(A, B):
             return False
     return True
 
+def gram_schmidt_conjugation(A, us):
+    ds = []
+    for j in range(us.shape[1]):
+        u = us[:, j]
+        s = -np.sum( [ d * innprd(u, A.dot(d)) / innprd(d, A.dot(d))  for d in ds ], axis=0 )
+        ds.append(u + s)
+    return ds
+
 def test_check_all_columns_orthogonal():
     print("************** test_check_all_columns_orthogonal: starting **************\n")
 
