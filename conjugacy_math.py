@@ -230,6 +230,7 @@ def gram_schmidt_conjugation(A, us):
         us = np.hstack(us)
 
     # TODO: check for linear independence of us
+
     ds = []
     for u in us.T:
         s = np.sum( [ d * innprd(u, A.dot(d)) / innprd(d, A.dot(d))  for d in ds ], axis=0 )

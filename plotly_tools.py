@@ -116,6 +116,7 @@ def plot_it_R2_short_3in1(data1, data2, data3, axes_max1=3., axes_max2=3., axes_
     fig['layout'].update(autosize=False)
     fig['layout'].update(height=350)
     fig['layout'].update(width=800)
+    fig['layout'].update(hovermode='closest')
 
     plotly.offline.plot(fig, filename="./plots/{}".format(filename), include_plotlyjs='cdn')
     return
