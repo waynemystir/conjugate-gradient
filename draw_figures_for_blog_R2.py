@@ -9,7 +9,8 @@ from numpy.linalg import inv
 from numpy.random import uniform as np_uniform, rand as np_rand
 from quadratic_form_contour_R2 import Quad_Form_Contour_R2
 from optimization import steepest_descent
-from plotly_tools import py_text_sub, Scatter_R2, plot_it_R2
+from plotly_tools import py_text_sub, Scatter_R2, plot_it_R2, plot_it_R2_short_3in1
+from plotly_vectors_R2 import draw_vector_R2
 from conjugacy_math import \
     compute_Dk, \
     compute_phi_k, \
@@ -246,13 +247,33 @@ def figure_CJDR_5(debug_print=False):
     return
 
 def figure_GSC_1(debug_print=False):
-    u = np_array([1., 0]).reshape(2, 1)
-    v = np_array([0., 5]).reshape(2, 1)
+    u = np_array([1., 1]).reshape(2, 1)
+    v = np_array([1., 2]).reshape(2, 1)
     us = np_hstack((u, v))
     d0, d1 = gram_schmidt_conjugation(A, us)
     print("d0={} d1={}".format(d0, d1))
     assert_A_orthogonal(A, d0, d1)
     print("yep")
+
+    c = 0.0
+    u0 = d0
+    u1 = d1 + c * d0
+    du0, m1 = draw_vector_R2(u0, color='blue', name=py_text_sub('u', 0))
+    du1, m2 = draw_vector_R2(u1, color='red', name=py_text_sub('u', 1))
+
+    data1, data2, data3 = [], [], []
+    data1.extend(du0)
+    data1.extend(du1)
+
+    d0, d1 = gram_schmidt_conjugation(A, [u0, u1])
+    dd0, m1 = draw_vector_R2(u0, color='blue', name=py_text_sub('d', 0))
+    dd1, m2 = draw_vector_R2(u1, color='red', name=py_text_sub('d', 1))
+
+    data2.extend(dd0)
+    data2.extend(dd1)
+
+    m = np_max([ m1, m2 ])
+    plot_it_R2_short_3in1(data1, data2, data3, axes_max1=m, axes_max2=m, axes_max3=m)
     return
 
 def plot_all_R2_figures(debug_print=False):

@@ -225,11 +225,15 @@ def check_matrices_equal_except_column_sign(A, B):
     return True
 
 def gram_schmidt_conjugation(A, us):
+    if type(us) == list:
+        us = [u.reshape(-1, 1) for u in us]
+        us = np.hstack(us)
+
+    # TODO: check for linear independence of us
     ds = []
-    for j in range(us.shape[1]):
-        u = us[:, j]
-        s = -np.sum( [ d * innprd(u, A.dot(d)) / innprd(d, A.dot(d))  for d in ds ], axis=0 )
-        ds.append(u + s)
+    for u in us.T:
+        s = np.sum( [ d * innprd(u, A.dot(d)) / innprd(d, A.dot(d))  for d in ds ], axis=0 )
+        ds.append(u - s)
     return ds
 
 def test_check_all_columns_orthogonal():
