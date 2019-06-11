@@ -282,7 +282,7 @@ def figure_GSC_1(debug_print=False):
     data3.extend(dd1)
 
     m = np_max([ m1, m2 ])
-    plot_it_R2_short_3in1(data1, data2, data3, axes_max1=m, axes_max2=m, axes_max3=m)
+    plot_it_R2_short_3in1(data1, data2, data3, axes_max1=m, axes_max2=m, axes_max3=m, title='GSC.Fig.1', filename='Fig_GSC_1.html')
     return
 
 def plot_all_R2_figures(debug_print=False):
