@@ -128,7 +128,9 @@ def plot_it_R2_short_3in1(data1, data2, data3, axes_max1=3., axes_max2=3., axes_
     fig['layout']['yaxis2'].update(nticks=8)
     fig['layout']['yaxis2'].update(scaleanchor='x2')
     fig['layout']['xaxis3'].update(range=r3)
+    fig['layout']['xaxis3'].update(nticks=8)
     fig['layout']['yaxis3'].update(range=r3)
+    fig['layout']['yaxis3'].update(nticks=8)
     fig['layout']['yaxis3'].update(scaleanchor='x3')
 
     plotly.offline.plot(fig, filename="./plots/{}".format(filename), include_plotlyjs='cdn')

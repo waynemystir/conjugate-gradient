@@ -247,6 +247,7 @@ def figure_CJDR_5(debug_print=False):
     return
 
 def figure_GSC_1(debug_print=False):
+    A = np_array([4., 1, 1, 15]).reshape(2, 2)
     data1, data2, data3 = [], [], []
     u = np_array([1., 1])
     v = np_array([-0.5, 2])
@@ -266,17 +267,21 @@ def figure_GSC_1(debug_print=False):
 
     dw0, m1 = draw_vector_R2(u1, t=w1, color='red')
     dw1, m2 = draw_vector_R2(w1, color='green')
-
-    d0, d1 = gram_schmidt_conjugation(A, [u0, u1])
-    assert_A_orthogonal(A, d0, d1)
-
-    dd0, m1 = draw_vector_R2(d0, color='blue', name=py_text_sub('d', 0))
-    dd1, m2 = draw_vector_R2(d1, color='blue', name=py_text_sub('d', 1))
+    Au0 = A.dot(u0)
+    Au0n = Au0 / norm(Au0)
+    dAu0, m1 = draw_vector_R2(-Au0n, color='grey', name=py_text_sub('Au', 0))
 
     data2.extend(dw0)
     data2.extend(dw1)
     data2.extend(du0)
     data2.extend(du1)
+    data2.extend(dAu0)
+
+    d0, d1 = gram_schmidt_conjugation(A, [u0, u1])
+    assert_A_orthogonal(A, d0, d1)
+
+    dd0, m1 = draw_vector_R2(d0, color='blue', name=py_text_sub('d', '(0)'))
+    dd1, m2 = draw_vector_R2(d1, color='blue', name=py_text_sub('d', '(1)'))
 
     data3.extend(dd0)
     data3.extend(dd1)
