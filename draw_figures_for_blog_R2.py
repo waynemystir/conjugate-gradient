@@ -255,7 +255,7 @@ def figure_GSC_1(debug_print=False):
     w0, w1 = gram_schmidt_conjugation(A, [u, v])
     assert_A_orthogonal(A, w0, w1)
 
-    c = 1.0
+    c = 2.3
     u0 = w0
     u1 = w1 + c * w0
 
@@ -269,7 +269,7 @@ def figure_GSC_1(debug_print=False):
     dw1, m2 = draw_vector_R2(w1, color='green')
     Au0 = A.dot(u0)
     Au0n = Au0 / norm(Au0)
-    dAu0, m1 = draw_vector_R2(-Au0n, color='grey', name=py_text_sub('Au', 0))
+    dAu0, m1 = draw_vector_R2(3.5 * Au0n, color='grey', name=py_text_sub('Au', 0))
 
     data2.extend(dw0)
     data2.extend(dw1)
