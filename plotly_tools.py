@@ -90,7 +90,7 @@ def plot_it_R2(data, axes_max=3., title='', filename='level_ellipsoid_R2_1.html'
     plotly.offline.plot(fig, filename="./plots/{}".format(filename), include_plotlyjs='cdn')
     return
 
-def plot_it_R2_short_3in1(data1, data2, data3, axes_max1=3., axes_max2=3., axes_max3=3.,
+def plot_it_R2_short_3in1(data1, data2, data3, axes_max1=3., axes_max2=3., axes_max3=3., nticks=10,
         title='', filename='short_3in1_R2.html', buffer_scale=1.1, buffer_fixed=1.):
     mr1 = buffer_scale * axes_max1 + buffer_fixed
     r1 = [-mr1, mr1]
@@ -118,19 +118,19 @@ def plot_it_R2_short_3in1(data1, data2, data3, axes_max1=3., axes_max2=3., axes_
     fig['layout'].update(width=900)
     fig['layout'].update(hovermode='closest')
     fig['layout']['xaxis1'].update(range=r1)
-    fig['layout']['xaxis1'].update(nticks=8)
+    fig['layout']['xaxis1'].update(nticks=nticks)
     fig['layout']['yaxis1'].update(range=r1)
-    fig['layout']['yaxis1'].update(nticks=8)
+    fig['layout']['yaxis1'].update(nticks=nticks)
     fig['layout']['yaxis1'].update(scaleanchor='x1')
     fig['layout']['xaxis2'].update(range=r2)
-    fig['layout']['xaxis2'].update(nticks=8)
+    fig['layout']['xaxis2'].update(nticks=nticks)
     fig['layout']['yaxis2'].update(range=r2)
-    fig['layout']['yaxis2'].update(nticks=8)
+    fig['layout']['yaxis2'].update(nticks=nticks)
     fig['layout']['yaxis2'].update(scaleanchor='x2')
     fig['layout']['xaxis3'].update(range=r3)
-    fig['layout']['xaxis3'].update(nticks=8)
+    fig['layout']['xaxis3'].update(nticks=nticks)
     fig['layout']['yaxis3'].update(range=r3)
-    fig['layout']['yaxis3'].update(nticks=8)
+    fig['layout']['yaxis3'].update(nticks=nticks)
     fig['layout']['yaxis3'].update(scaleanchor='x3')
 
     plotly.offline.plot(fig, filename="./plots/{}".format(filename), include_plotlyjs='cdn')
